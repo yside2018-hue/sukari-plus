@@ -1,0 +1,23 @@
+name: Build PWA / APK
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install PWABuilder CLI
+        run: npm install -g @pwabuilder/pwabuilder-cli
+
+      - name: Generate Android Package
+        run: |
+          pwabuilder generate --siteUrl https://yside2018-hue.github.io/sukari-plus/ --platform android
